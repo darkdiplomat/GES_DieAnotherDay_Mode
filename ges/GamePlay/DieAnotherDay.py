@@ -96,10 +96,10 @@ class DieAnotherDay(GEScenario):
     
     #1. Callback functions:
     def GetPrintName( self ):
-        return "#GES_GP_DAD_NAME"
+        return "Die Another Day"
     
     def GetGameDescription( self ):
-        return "#GES_GP_DAD_NAME"
+        return "Die Another Day"
     
     def GetScenarioHelp( self, help_obj ):
        help_obj.SetDescription(_("#GES_GP_DAD_HELP", self.version))
