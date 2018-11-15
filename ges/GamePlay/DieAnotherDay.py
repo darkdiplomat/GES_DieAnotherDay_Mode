@@ -1,4 +1,5 @@
 from . import GEScenario
+from .Utils import _
 from .Utils.GEPlayerTracker import GEPlayerTracker
 from .Utils.GETimer import TimerTracker, Timer
 
@@ -101,7 +102,7 @@ class DieAnotherDay(GEScenario):
         return "#GES_GP_DAD_NAME"
     
     def GetScenarioHelp( self, help_obj ):
-       help_obj.SetDescription( "INSERT HELP HERE" )  # #GES_GP_DAD_HELP
+       help_obj.SetDescription(_("#GES_GP_DAD_HELP", self.version))
         
     def GetTeamPlay( self ):
         return GEGlobal.TEAMPLAY_ALWAYS
