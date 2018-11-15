@@ -1,10 +1,10 @@
 from . import GEScenario
-from GamePlay.Utils.GEPlayerTracker import GEPlayerTracker
-from Utils.GETimer import TimerTracker, Timer
+from .Utils.GEPlayerTracker import GEPlayerTracker
+from .Utils.GETimer import TimerTracker, Timer
 
 import GEPlayer, GEUtil, GEMPGameRules, GEGlobal, GEEntity
 
-USING_API = GEGlobal.API_VERSION_1_1_1
+USING_API = GEGlobal.API_VERSION_1_2_0
 
 '''
 This mode is based on Mefy's MOHAA "Freeze Tag" Mode.
@@ -78,8 +78,8 @@ class DieAnotherDay(GEScenario):
 
         self.eliminatedPlayerCount = 0
 
-    def Cleanup( self ):
-        super( DieAnotherDay, self ).Cleanup()
+    def OnUnloadGamePlay( self ):
+        super( DieAnotherDay, self ).OnUnloadGamePlay()
         self.resurrections.cleanup()
         self.REs.cleanup()
         self.resurrections = None
@@ -101,7 +101,7 @@ class DieAnotherDay(GEScenario):
         return "#GES_GP_DAD_NAME"
     
     def GetScenarioHelp( self, help_obj ):
-        help_obj.SetDescription( "#GES_GP_DAD_HELP" )
+       help_obj.SetDescription( "INSERT HELP HERE" )  # #GES_GP_DAD_HELP
         
     def GetTeamPlay( self ):
         return GEGlobal.TEAMPLAY_ALWAYS
