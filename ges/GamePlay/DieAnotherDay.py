@@ -144,9 +144,9 @@ class DieAnotherDay(GEScenario):
     def OnPlayerSay(self,player,text):
         if text == "!voodoo" or "!gesrocks":
             if not self.isEliminatedPlayer(player) and player.GetTeamNumber() != GEGlobal.TEAM_SPECTATOR:
-                if not self.playersLRRTargetMonitor.has_key(player):
+                if player not in self.playersLRRTargetMonitor:
                     hitEntity = self.getEntHitByLRRLaser(player)
-                    if hitEntity != None:
+                    if hitEntity is not None:
                         if hitEntity.GetClassname() == "ge_capturearea":
                             if hitEntity.GetTeamNumber() == player.GetTeamNumber() and self.REs.areaUsable(hitEntity):
                                 self.beginREInteraction(player,hitEntity,False)
@@ -365,7 +365,7 @@ class DieAnotherDay(GEScenario):
         GEMPGameRules.SetTeamWinner(team)
         GEMPGameRules.EndRound()
         
-    def CanPlayerChangeTeam(self,player,oldTeam,newTeam):
+    def CanPlayerChangeTeam(self,player,oldTeam,newTeam,wasforced):
         if oldTeam != GEGlobal.TEAM_SPECTATOR and newTeam != GEGlobal.TEAM_SPECTATOR and not self.isEliminatedPlayer(player):
             self.pltracker.SetValue(player,"CanPlayerChangeTeam()_called",True)
             def callback(timer,update_type):
@@ -1130,12 +1130,12 @@ class DieAnotherDay(GEScenario):
             #Delete the resurrection timer.
             self.DAD.timerTracker.RemoveTimer(self.timer.GetName())
             #Stop LRR Target Monitor
-            if self.DAD.playersLRRTargetMonitor.has_key(self.user): 
+            if self.user in self.DAD.playersLRRTargetMonitor:
                 self.DAD.playersLRRTargetMonitor[self.user].delete()
                 self.LRRMonitorExists = False
             
             #If nesscary, change the appearance of the RE to show its not being used:
-            if self.DAD.REs.doesREExsist(self.RE.ID) and self.RE.used == False:
+            if self.DAD.REs.doesREExsist(self.RE.ID) and self.RE.used is False:
                 if self.RE.userCount == 0: 
                     #Stop pulsating RE Rings
                     self.DAD.REs.stopPulsatingRings(self.RE.ID)
@@ -1189,7 +1189,7 @@ class DieAnotherDay(GEScenario):
                     elif update_type == Timer.UPDATE_RUN:
                         #If the resurrection has failed:
                         if self.hasUserDisconnected or self.hasUserDied or self.team != self.user.GetTeamNumber(): self.resurrectionFailed()
-                        elif self.LRREnabled == False and self.proximityEnabled == False: 
+                        elif self.LRREnabled is False and self.proximityEnabled is False:
                             self.resurrectionFailed() #TESTED
                         #If it hasn't failed:
                         else:
