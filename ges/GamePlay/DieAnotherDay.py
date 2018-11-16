@@ -83,6 +83,7 @@ class DieAnotherDay(GEScenario):
 
     def OnUnloadGamePlay(self):
         super(DieAnotherDay, self).OnUnloadGamePlay()
+        self.HUDSCounts.hide()
         self.resurrections.cleanup()
         self.REs.cleanup()
         del self.resurrections
